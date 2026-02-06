@@ -2,8 +2,8 @@
 
 
 # Imports
-from classes.plano import TipoPlano
-from database.run_sql import run_sql
+from classes.planos import TipoPlano
+from databases.run_sql import run_sql
 
 
 # Função para obter todos os planos
