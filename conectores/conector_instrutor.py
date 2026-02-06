@@ -1,5 +1,4 @@
-# Módulo de conexão entre a classe e o banco de dados
-
+# Módulo de conexão entre a classe e o banco de dados 
 
 # Imports
 from database.run_sql import run_sql
@@ -38,12 +37,12 @@ def get_one(id):
     result = run_sql(sql, value)[0]
 
     if result is not None:
-        instrutor = Instrutor(row["nome"],
-                              row["sobrenome"],
-                              row["data_nascimento"],
-                              row["endereco"],
-                              row["telefone"],
-                              row["id"])
+        instrutor = Instrutor(result["nome"],
+                              result["sobrenome"],
+                              result["data_nascimento"],
+                              result["endereco"],
+                              result["telefone"],
+                              result["id"])
     return instrutor
 
 
@@ -61,7 +60,7 @@ def get_activities(instructor_id):
         atividade = Atividade(row["nome"],
                               row["instrutor"],
                               row["data"],
-                              row["ducacao"],
+                              row["duracao"],
                               row["capacidade"],
                               row["tipo_plano"],
                               row["ativo"],

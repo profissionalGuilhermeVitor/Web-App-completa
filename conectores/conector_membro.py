@@ -2,7 +2,7 @@
 
 
 # Imports
-import conectores.plano as plano
+import conectores.conector_plano as plano
 from database.run_sql import run_sql
 from classes.membro import Membro
 from classes.atividade import Atividade
@@ -18,7 +18,7 @@ def get_all():
 
     for row in results:
         
-        tipo_plano = plano.get_one(row["plano"])
+        tipo_plano = plano.get_one(row["tipo_plano"])
         
         membro = Membro(row["nome"],
                         row["sobrenome"],
@@ -31,7 +31,7 @@ def get_all():
                         row["ativo"],
                         row["id"])
 
-        membros.append(member)
+        membros.append(membro)
 
     return membros
 
@@ -46,18 +46,18 @@ def get_one(id):
 
     if result is not None:
 
-        tipo_plano = plano.get_one(row["plano"])
+        tipo_plano = plano.get_one(result["tipo_plano"])
         
-        membro = Membro(row["nome"],
-                        row["sobrenome"],
-                        row["data_nascimento"],
-                        row["endereco"],
-                        row["telefone"],
-                        row["email"],
+        membro = Membro(result["nome"],
+                        result["sobrenome"],
+                        result["data_nascimento"],
+                        result["endereco"],
+                        result["telefone"],
+                        result["email"],
                         tipo_plano,
-                        row["data_inicio"],
-                        row["ativo"],
-                        row["id"])
+                        result["data_inicio"],
+                        result["ativo"],
+                        result["id"])
 
     return membro
 
@@ -67,19 +67,19 @@ def get_activities(user_id):
 
     atividades = []
 
-    sql = "SELECT atividades.* FROM webuser.TB_ATIVIDADES INNER JOIN webuser.TB_AGENDAMENTOS on webuser.TB_ATIVIDADES.id = webuser.TB_AGENDAMENTOS.atividade where webuser.TB_AGENDAMENTOS.membro = %s"
+    sql = "SELECT webuser.TB_ATIVIDADES.* FROM webuser.TB_ATIVIDADES INNER JOIN webuser.TB_AGENDAMENTOS on webuser.TB_ATIVIDADES.id = webuser.TB_AGENDAMENTOS.atividade where webuser.TB_AGENDAMENTOS.membro = %s"
     value = [user_id]
     
     results = run_sql(sql, value)
 
     for row in results:
         
-        tipo_plano = plano.get_one(row["plano"])
+        tipo_plano = plano.get_one(row["tipo_plano"])
         
         atividade = Atividade(row["nome"],
                               row["instrutor"],
                               row["data"],
-                              row["ducacao"],
+                              row["duracao"],
                               row["capacidade"],
                               tipo_plano,
                               row["ativo"],
@@ -100,7 +100,7 @@ def get_all_active():
 
     for row in results:
         
-        tipo_plano = plano.get_one(row["plano"])
+        tipo_plano = plano.get_one(row["tipo_plano"])
         
         membro = Membro(row["nome"],
                         row["sobrenome"],
@@ -113,7 +113,7 @@ def get_all_active():
                         row["ativo"],
                         row["id"])
 
-        membros.append(member)
+        membros.append(membro)
 
     return membros
 
@@ -128,7 +128,7 @@ def get_all_inactive():
 
     for row in results:
         
-        tipo_plano = plano.get_one(row["plano"])
+        tipo_plano = plano.get_one(row["tipo_plano"])
         
         membro = Membro(row["nome"],
                         row["sobrenome"],
@@ -141,7 +141,7 @@ def get_all_inactive():
                         row["ativo"],
                         row["id"])
 
-        membros.append(member)
+        membros.append(membro)
 
     return membros
 
@@ -161,7 +161,7 @@ def new(membro):
 
 # Função para deletar um membro
 def delete_one(id):
-    sql = "DELETE  FROM webuser.TB_MEMBROS WHERE id = %s"
+    sql = "DELETE FROM webuser.TB_MEMBROS WHERE id = %s"
     value = [id]
     run_sql(sql, value)
 

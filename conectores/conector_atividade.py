@@ -2,7 +2,7 @@
 
 
 # Imports
-import conectores.plano as plano
+import conectores.conector_plano as plano
 from database.run_sql import run_sql
 from classes.atividade import Atividade
 from classes.membro import Membro
@@ -18,7 +18,7 @@ def get_all():
 
     for row in results:
         
-        tipo_plano = plano.get_one(row["plano"])
+        tipo_plano = plano.get_one(row["tipo_plano"])
         
         atividade = Atividade(result["nome"],
                               result["instrutor"],
@@ -38,7 +38,7 @@ def get_members(id):
 
     membros = []
 
-    sql = "SELECT membros.* FROM webuser.TB_MEMBROS INNER JOIN webuser.TB_AGENDAMENTOS ON membros.id = webuser.TB_AGENDAMENTOS.membro WHERE webuser.TB_AGENDAMENTOS.atividade = %s"
+    sql = "SELECT webuser.TB_MEMBROS.* FROM webuser.TB_MEMBROS INNER JOIN webuser.TB_AGENDAMENTOS ON membros.id = webuser.TB_AGENDAMENTOS.membro WHERE webuser.TB_AGENDAMENTOS.atividade = %s"
     value = [id]
 
     results = run_sql(sql, value)
@@ -55,7 +55,7 @@ def get_members(id):
                         row["ativo"],
                         row["id"])
 
-        membros.append(member)
+        membros.append(membro)
         
     return membros
 
@@ -70,16 +70,16 @@ def get_all_active():
 
     for row in results:
         
-        tipo_plano = plano.get_one(row["plano"])
+        tipo_plano = plano.get_one(row["tipo_plano"])
         
-        atividade = Atividade(result["nome"],
-                              result["instrutor"],
-                              result["data"],
-                              result["duracao"],
-                              result["capacidade"],
+        atividade = Atividade(row["nome"],
+                              row["instrutor"],
+                              row["data"],
+                              row["duracao"],
+                              row["capacidade"],
                               tipo_plano,
-                              result["ativo"],
-                              result["id"])
+                              row["ativo"],
+                              row["id"])
 
         atividades.append(atividade)
 
@@ -96,7 +96,7 @@ def get_all_inactive():
 
     for row in results:
         
-        tipo_plano = plano.get_one(row["plano"])
+        tipo_plano = plano.get_one(row["tipo_plano"])
         
         atividade = Atividade(result["nome"],
                               result["instrutor"],
@@ -121,7 +121,7 @@ def get_one(id):
     result = run_sql(sql, value)[0]
 
     if result is not None:
-        tipo_plano = plano.get_one(result["plano"])
+        tipo_plano = plano.get_one(result["tipo_plano"])
         
         atividade = Atividade(result["nome"],
                               result["instrutor"],
@@ -151,7 +151,7 @@ def new(atividade):
 # Função para deletar uma atividade
 def delete_one(id):
     
-    sql = "DELETE  FROM webuser.TB_ATIVIDADES WHERE id = %s"
+    sql = "DELETE FROM webuser.TB_ATIVIDADES WHERE id = %s"
     value = [id]
     
     run_sql(sql, value)

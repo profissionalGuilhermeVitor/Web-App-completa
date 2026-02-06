@@ -71,7 +71,7 @@ def verifica_agendamento(atividade, membro):
         return True
 
 
-# Função para deletar um agendmento com base no id e no membro
+# Função para deletar um agendamento com base no id e no membro
 def delete_agendamento(membro, atividade):
     
     sql = "DELETE  FROM webuser.TB_AGENDAMENTOS WHERE membro = %s and atividade = %s"
