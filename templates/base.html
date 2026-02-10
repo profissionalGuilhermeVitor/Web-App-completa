@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="{{ url_for ('static',filename='style.css')}}">
+  <link rel="stylesheet" href="{{ url_for ('static',filename='form.css')}}">
+  <link rel="stylesheet" href="{{ url_for ('static',filename='show.css')}}">
+  <link rel="stylesheet" href="{{ url_for ('static',filename='cards.css')}}">
+  <link rel="shortcut icon" href="{{ url_for ('static',filename='favicon.ico') }}">
+  <script src="https://kit.fontawesome.com/3b9a04f840.js" crossorigin="anonymous"></script>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }} || Academia DSA</title>
+</head>
+<body>
+  <header>
+    <hgroup id="header">
+      <span>Academia DSA</span>
+    </hgroup>
+    <nav class="navbar">
+      <a id="home" href="/">Home</a>
+      <div class="dropdown">
+        <button class="dropbtn">
+          Membros
+        </button>
+        <div class="dropdown-content">
+          <a href="">Consultar Membros</a>
+          <a href="">Cadastrar Membro</a>
+          <a href="">Desativar Membro</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button class="dropbtn">Atividades</button>
+        <div class="dropdown-content">
+          <a href="">Consultar Atividades</a>
+          <a href="">Cadastrar Atividade</a>
+          <a href="">Desativar Atividade</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button class="dropbtn">Instrutores</button>
+        <div class="dropdown-content">
+          <a href="">Consultar Instrutores</a>
+          <a href="">Cadastrar Instrutor</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+  {% block content %}
+  {% endblock %}
+</body>
+
+<footer class="footer">
+  <p>
+    Obrigado por usar esta web app
+  </p>
+</footer>
+</html>
