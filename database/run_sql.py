@@ -7,7 +7,7 @@ def run_sql(sql, values = None):
     conn = None
     results = []
     try:
-        conn = psycopg2.connect("host=localhost port=5432 dbname=dbapp user=postgrees password=dsacademy")
+        conn = psycopg2.connect("host=localhost port=5432 dbname=dbapp user=postgres password=dsacademy")
         cursor = conn.cursor(cursor_factory= ext.DictCursor)
         cursor.execute(sql, values)
         conn.commit()
@@ -16,7 +16,7 @@ def run_sql(sql, values = None):
     except(Exception, psycopg2.DatabaseError) as error:
         print(error)
     finally:
-        if conn.close is not None:
+        if conn is not None:
             conn.close()
     
     return results

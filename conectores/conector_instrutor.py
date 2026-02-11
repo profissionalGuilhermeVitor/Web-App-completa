@@ -1,9 +1,9 @@
 # Módulo de conexão entre a classe e o banco de dados 
 
 # Imports
-from databases.run_sql import run_sql
-from classes.instrutores import Instrutor
-from classes.atividades import Atividade
+from database.run_sql import run_sql
+from classes.instrutor import Instrutor
+from classes.atividade import Atividade
 
 
 # Função para listar todos os instrutores
